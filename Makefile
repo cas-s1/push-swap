@@ -5,6 +5,8 @@ CFLAGS := -Wall -Wextra -Werror
 LIBFT := libft/libft.a
 
 FILES := push_swap \
+		 stack \
+		 utils \
 
 SRCDIR := src
 
