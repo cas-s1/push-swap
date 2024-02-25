@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 07:29:56 by co-neill          #+#    #+#             */
-/*   Updated: 2024/02/03 16:00:25 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/02/26 08:38:30 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	parse_args(char **av)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	while (av[++i])
 	{
 		j = 0;
@@ -72,26 +72,14 @@ static void	parse_args(char **av)
 
 int	main(int ac, char **av)
 {
-	char	**args;
-	t_stack	*new;
-	t_stack	*a;
-	t_stack	*b;
-	int		i;
+	//t_context context;
+	//int		  *numbers;
 
-	i = 0;
-	a = 0;
-	b = 0;
-	args = av;
-	if (ac == 2 && ft_strchr(args[1], 32) && --i)
-	{
-		args = ft_split(args[1], 32);
-		parse_args(args);
-	}
-	parse_args(args);
-	while (args[++i])
-	{
-		new = new_stack(pushswap_atoi(args[i]));
-		stackadd_bottom(&a, new);
-	}
+	if (ac == 2 && ft_strchr(av[1], 32))
+		av = ft_split(av[1], 32);
+	else
+		av++;
+	parse_args(av);
+	//init_pushswap(&context, ac, av);
 	return (0);
 }

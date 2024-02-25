@@ -12,22 +12,3 @@
 
 #include "../inc/push_swap.h"
 
-void	print_stack(t_stack *stack)
-{
-	if (!stack)
-		ft_putstr_fd("No nodes!\n", 2);
-	while (stack)
-	{
-		ft_putnbr_fd(stack->number, 1);
-		ft_putchar_fd(10, 1);
-		stack = stack->next;
-	}
-}
-
-void	fill_stack(t_stack *stack, char **args, int i)
-{
-	t_stack	new;
-
-	while (args[++i])
-	{
-		new = new_stack(args)
