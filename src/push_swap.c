@@ -6,17 +6,11 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 07:29:56 by co-neill          #+#    #+#             */
-/*   Updated: 2024/02/26 08:38:30 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/02/28 20:26:20 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
-
-static void	error(void)
-{
-	ft_putstr_fd("Error\n", 2);
-	exit(1);
-}
 
 static long int	pushswap_atoi(char *s)
 {
@@ -72,14 +66,16 @@ static void	parse_args(char **av)
 
 int	main(int ac, char **av)
 {
-	//t_context context;
-	//int		  *numbers;
+	t_stack	*a;
+	t_stack	*b;
 
+	a = NULL;
+	b = NULL;
 	if (ac == 2 && ft_strchr(av[1], 32))
 		av = ft_split(av[1], 32);
 	else
 		av++;
 	parse_args(av);
-	//init_pushswap(&context, ac, av);
+	init_pushswap(a, b, ac, av);
 	return (0);
 }

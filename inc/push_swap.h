@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 07:30:11 by co-neill          #+#    #+#             */
-/*   Updated: 2024/02/22 21:06:02 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/02/28 20:26:12 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,16 @@
 
 typedef struct s_stack
 {
-	int	*stack;
-	int	size;
-	int	top;
-	int	bottom;
+	int	value;
+	int	cost_a;
+	int	cost_b;
+	int	total_cost;
 }	t_stack;
 
-typedef struct s_context
-{
-	t_stack	a;
-	t_stack	b;
-}	t_context;
-
-
 // stack.c
-t_stack	*init_stack(t_context *context, t_stack *stack, int size);
 
 // utils.c
-void	print_stack(t_stack *stack);
+void  error(void);
+void  init_pushswap(t_stack *a, t_stack *b, int ac, char **av);
 
 #endif
