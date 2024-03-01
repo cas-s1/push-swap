@@ -6,13 +6,32 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 07:29:56 by co-neill          #+#    #+#             */
-/*   Updated: 2024/02/28 20:26:20 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/02/29 09:30:48 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-static long int	pushswap_atoi(char *s)
+void	error(t_stack *a, t_stack *b)
+{
+	free_data(a, b);
+	ft_putendl_fd("Error", 2);
+	exit(1);
+}
+
+// DELETE BEFORE SUBMISSION
+static void	print_nodes(t_node *nodes, int size)
+{
+	int	i;
+
+	i = -1;
+	while (++i < size - 1)
+	{
+		printf("%d\n", nodes[i].value);
+	}
+}
+
+static long int	ps_atoi(t_stack *a, t_stack *b, char *s)
 {
 	long int	res;
 	int			sign;
@@ -27,25 +46,25 @@ static long int	pushswap_atoi(char *s)
 		i++;
 	}
 	if (!s[i])
-		error();
+		error(a, b);
 	while (ft_isdigit(s[i]))
 		res = res * 10 + (s[i++] - 48);
 	if (s[i] && !ft_isdigit(s[i]))
-		error();
+		error(a, b);
 	return (res * sign);
 }
 
-static int	compare_atoi(char *s1, char *s2)
+static int	compare_atoi(t_stack *a, t_stack *b, char *s1, char *s2)
 {
 	long int	i;
 	long int	j;
 
-	i = pushswap_atoi(s1);
-	j = pushswap_atoi(s2);
+	i = ps_atoi(a, b, s1);
+	j = ps_atoi(a, b, s2);
 	return (i - j);
 }
 
-static void	parse_args(char **av)
+static void	parse_args(t_stack *a, t_stack *b, char **av)
 {
 	int		i;
 	int		j;
@@ -54,28 +73,28 @@ static void	parse_args(char **av)
 	while (av[++i])
 	{
 		j = 0;
-		if (pushswap_atoi(av[i]) > INT_MAX || pushswap_atoi(av[i]) < INT_MIN)
-			error();
+		if (ps_atoi(a, b, av[i]) > INT_MAX || ps_atoi(a, b, av[i]) < INT_MIN)
+			error(a, b);
 		while (av[++j])
 		{
-			if (i != j && !compare_atoi(av[i], av[j]))
-				error();
+			if (i != j && !compare_atoi(a, b, av[i], av[j]))
+				error(a, b);
 		}
 	}
 }
 
 int	main(int ac, char **av)
 {
-	t_stack	*a;
-	t_stack	*b;
+	t_stack	a;
+	t_stack	b;
 
-	a = NULL;
-	b = NULL;
 	if (ac == 2 && ft_strchr(av[1], 32))
 		av = ft_split(av[1], 32);
 	else
 		av++;
-	parse_args(av);
-	init_pushswap(a, b, ac, av);
+	parse_args(&a, &b, av);
+	init_pushswap(&a, &b, ac, av);
+	print_nodes(a.nodes, ac);
+	free_data(&a, &b);
 	return (0);
 }

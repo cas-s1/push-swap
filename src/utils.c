@@ -6,58 +6,75 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:23:02 by co-neill          #+#    #+#             */
-/*   Updated: 2024/02/28 20:35:48 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/01 08:10:44 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void  error(void)
+void	free_data(t_stack *a, t_stack *b)
 {
-	ft_putstr_fd("Error\n", 2);
-	exit(1);
+	if (a->nodes)
+		free(a->nodes);
+	if (b->nodes)
+		free(b->nodes);
 }
-static t_stack	*init_stack(t_stack *stack, int size)
+
+int	is_sorted(t_stack *stack)
 {
-	stack = (t_stack *) malloc(size * sizeof(t_stack));
-	if (!stack)
+	int	i;
+
+	i = stack->top;
+	while ((i = next_down(stack, i)) != stack->bottom)
 	{
-		ft_putstr_fd("stack bad", 2);
+		if (stack->nodes[i].value < stack->nodes[next_up(stack, i)].value)
+			return (0);
+	}
+	return (1);
+}
+
+static t_node	*init_nodes(t_node *node, int size)
+{
+	node = (t_node *) malloc(size * sizeof(t_node));
+	if (!node)
+	{
+		ft_putendl_fd("stack bad", 2);
 		exit(1);
 	}
-	return (stack);
+	return (node);
 }
 
-static void	fill_stack(t_stack *stack, int size, char **args)
+static void	fill_nodes(t_stack *stack, int size, char **args)
 {
 	int	i;
 
 	i = -1;
 	while (++i < size - 1)
 	{
-		stack[i].value = ft_atoi(args[i]);
-		stack[i].cost_a = 0;
-		stack[i].cost_b = 0;
-		stack[i].total_cost = 0;
+		stack->nodes[i].value = ft_atoi(args[i]);
+		stack->nodes[i].cost_a = 0;
+		stack->nodes[i].cost_b = 0;
+		stack->nodes[i].total_cost = 0;
 	}
+	stack->bottom = size - 1;
 }
 
-static void	print_stack(t_stack *a, int size)
+void	init_pushswap(t_stack *a, t_stack *b, int ac, char **av)
 {
-	int	i;
+	t_node	*a_nodes;
+	t_node	*b_nodes;
 
-	i = -1;
-	while (++i < size - 1)
-	{
-		printf("%d\n", a[i].total_cost);
-	}
+	a_nodes = NULL;
+	b_nodes = NULL;
+	a_nodes = init_nodes(a_nodes, ac);
+	b_nodes = init_nodes(b_nodes, ac);
+	a->nodes = a_nodes;
+	a->size = ac - 1;
+	a->top = 0;
+	a->bottom = 0;
+	b->nodes = b_nodes;
+	b->size = ac - 1;
+	b->top = 0;
+	b->bottom = 0;
+	fill_nodes(a, ac, av);
 }
-
-void  init_pushswap(t_stack *a, t_stack *b, int ac, char **av)
-{	
-	a = init_stack(a, ac);
-	b = init_stack(b, ac);
-	fill_stack(a, ac, av);
-	print_stack(a, ac);
-}
-
