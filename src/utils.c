@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:23:02 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/01 08:10:44 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/03 09:52:37 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ int	is_sorted(t_stack *stack)
 	int	i;
 
 	i = stack->top;
-	while ((i = next_down(stack, i)) != stack->bottom)
+	while (i != stack->bottom)
 	{
 		if (stack->nodes[i].value < stack->nodes[next_up(stack, i)].value)
 			return (0);
+		i = next_down(stack, i);
 	}
 	return (1);
 }

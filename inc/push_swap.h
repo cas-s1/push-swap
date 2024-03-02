@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 07:30:11 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/01 16:34:36 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/03 09:49:06 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_stack
 void	error(t_stack *a, t_stack *b);
 
 // stack.c
-int		next_up(t_stack	*stack, int	index);
+int		next_up(t_stack *stack, int index);
 int		next_down(t_stack *stack, int index);
 int		value(t_stack *stack, int index);
 int		current_size(t_stack *stack);
@@ -53,5 +53,20 @@ void	init_pushswap(t_stack *a, t_stack *b, int ac, char **av);
 // op_push.c
 void	push_a(t_stack *a, t_stack *b);
 void	push_b(t_stack *a, t_stack *b);
+
+// op_swap.c
+void	swap_a(t_stack *a);
+void	swap_b(t_stack *b);
+void	swap_both(t_stack *a, t_stack *b);
+
+// op_rotate.c
+void	rotate_a(t_stack *a);
+void	rotate_b(t_stack *b);
+void	rotate_both(t_stack *a, t_stack *b);
+
+// op_reverse_rotate.c
+void	reverse_rotate_a(t_stack *a);
+void	reverse_rotate_b(t_stack *b);
+void	reverse_rotate_both(t_stack *a, t_stack *b);
 
 #endif

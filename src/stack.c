@@ -6,13 +6,13 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 08:25:00 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/01 07:35:07 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/03 09:49:43 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-int	next_up(t_stack	*stack, int	index)
+int	next_up(t_stack *stack, int index)
 {
 	if (current_size(stack) == 0)
 		return (index);

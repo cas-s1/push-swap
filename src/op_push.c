@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 07:20:58 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/01 16:33:08 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/02 09:44:19 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void	push_a(t_stack *a, t_stack *b)
 void	push_b(t_stack *a, t_stack *b)
 {
 	push(a, b);
-	ft_putendl_fd("pa", 1);
+	ft_putendl_fd("pb", 1);
 }
