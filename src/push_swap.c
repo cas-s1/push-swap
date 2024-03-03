@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 07:29:56 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/03 11:05:16 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/04 07:13:45 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	error(t_stack *a, t_stack *b)
 }
 
 // DELETE BEFORE SUBMISSION
-static void	print_nodes(t_stack *stack)
+/*static void	print_nodes(t_stack *stack)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ static void	print_nodes(t_stack *stack)
 		i = next_down(stack, i);
 		printf("%d\n", stack->nodes[i].value);
 	}
-}
+}*/
 
 static long int	ps_atoi(t_stack *a, t_stack *b, char *s)
 {
@@ -97,7 +97,7 @@ int	main(int ac, char **av)
 	parse_args(&a, &b, av);
 	init_pushswap(&a, &b, ac, av);
 	sort(&a, &b);
-	print_nodes(&a);
+	//print_nodes(&a);
 	free_data(&a, &b);
 	return (0);
 }
