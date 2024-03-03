@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 07:29:56 by co-neill          #+#    #+#             */
-/*   Updated: 2024/02/29 09:30:48 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/03 11:05:16 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ void	error(t_stack *a, t_stack *b)
 }
 
 // DELETE BEFORE SUBMISSION
-static void	print_nodes(t_node *nodes, int size)
+static void	print_nodes(t_stack *stack)
 {
 	int	i;
 
-	i = -1;
-	while (++i < size - 1)
+	i = stack->top;
+	printf("%d\n", stack->nodes[i].value);
+	while (i != stack->bottom)
 	{
-		printf("%d\n", nodes[i].value);
+		i = next_down(stack, i);
+		printf("%d\n", stack->nodes[i].value);
 	}
 }
 
@@ -94,7 +96,8 @@ int	main(int ac, char **av)
 		av++;
 	parse_args(&a, &b, av);
 	init_pushswap(&a, &b, ac, av);
-	print_nodes(a.nodes, ac);
+	sort(&a, &b);
+	print_nodes(&a);
 	free_data(&a, &b);
 	return (0);
 }

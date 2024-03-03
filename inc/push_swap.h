@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 07:30:11 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/03 09:49:06 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/03 10:20:03 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int		is_full(t_stack *stack);
 
 // utils.c
 void	free_data(t_stack *a, t_stack *b);
+int		is_sorted(t_stack *stack);
 void	init_pushswap(t_stack *a, t_stack *b, int ac, char **av);
 
 // op_push.c
@@ -68,5 +69,8 @@ void	rotate_both(t_stack *a, t_stack *b);
 void	reverse_rotate_a(t_stack *a);
 void	reverse_rotate_b(t_stack *b);
 void	reverse_rotate_both(t_stack *a, t_stack *b);
+
+// sort.c
+void	sort(t_stack *a, t_stack *b);
 
 #endif

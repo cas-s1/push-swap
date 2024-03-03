@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:23:02 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/03 09:52:37 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/03 10:37:14 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ int	is_sorted(t_stack *stack)
 	i = stack->top;
 	while (i != stack->bottom)
 	{
-		if (stack->nodes[i].value < stack->nodes[next_up(stack, i)].value)
+		if (stack->nodes[i].value > stack->nodes[next_down(stack, i)].value)
+		{
+			/*printf("%d - %d\n", stack->nodes[i].value, stack->nodes[next_down(stack, i)].value);
+			printf("%d - %d - %d\n", stack->top, stack->bottom, stack->size);*/
 			return (0);
+		}
 		i = next_down(stack, i);
 	}
 	return (1);
@@ -50,7 +54,7 @@ static void	fill_nodes(t_stack *stack, int size, char **args)
 	int	i;
 
 	i = -1;
-	while (++i < size - 1)
+	while (++i < size)
 	{
 		stack->nodes[i].value = ft_atoi(args[i]);
 		stack->nodes[i].cost_a = 0;
@@ -65,12 +69,13 @@ void	init_pushswap(t_stack *a, t_stack *b, int ac, char **av)
 	t_node	*a_nodes;
 	t_node	*b_nodes;
 
+	--ac;
 	a_nodes = NULL;
 	b_nodes = NULL;
 	a_nodes = init_nodes(a_nodes, ac);
 	b_nodes = init_nodes(b_nodes, ac);
 	a->nodes = a_nodes;
-	a->size = ac - 1;
+	a->size = ac;
 	a->top = 0;
 	a->bottom = 0;
 	b->nodes = b_nodes;

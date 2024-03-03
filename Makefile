@@ -7,6 +7,11 @@ LIBFT := libft/libft.a
 FILES := push_swap \
 		 stack \
 		 utils \
+		 op_push \
+		 op_swap \
+		 op_rotate \
+		 op_reverse_rotate \
+		 sort \
 
 SRCDIR := src
 
@@ -15,8 +20,6 @@ SRC := $(FILES:%=$(SRCDIR)/%.c)
 OBJDIR := obj
 
 OBJ := $(FILES:%=$(OBJDIR)/%.o)
-
-NOPRINT = 1> /dev/null 2> /dev/null
 
 all: $(NAME)
 
