@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 07:29:56 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/04 07:13:45 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:28:23 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,24 @@
 
 void	error(t_stack *a, t_stack *b)
 {
-	free_data(a, b);
-	ft_putendl_fd("Error", 2);
+	//free_data(a, b);
+	if (!a || b)
+		ft_putendl_fd("Error", 2);
 	exit(1);
 }
 
 // DELETE BEFORE SUBMISSION
 /*static void	print_nodes(t_stack *stack)
 {
-	int	i;
-
-	i = stack->top;
-	printf("%d\n", stack->nodes[i].value);
-	while (i != stack->bottom)
+	if (stack == NULL)
 	{
-		i = next_down(stack, i);
-		printf("%d\n", stack->nodes[i].value);
+		ft_putendl_fd("empty stack", 2);
+		return ;
+	}
+	while (stack)
+	{
+		printf("%d\n", stack->value);
+		stack = stack->next;
 	}
 }*/
 
@@ -87,17 +89,21 @@ static void	parse_args(t_stack *a, t_stack *b, char **av)
 
 int	main(int ac, char **av)
 {
-	t_stack	a;
-	t_stack	b;
+	t_stack	*a;
+	t_stack	*b;
 
+	a = NULL;
+	b = NULL;
+	if (ac < 2)
+		exit(0);
 	if (ac == 2 && ft_strchr(av[1], 32))
 		av = ft_split(av[1], 32);
 	else
 		av++;
-	parse_args(&a, &b, av);
-	init_pushswap(&a, &b, ac, av);
+	parse_args(a, b, av);
+	init_pushswap(&a, av);
 	sort(&a, &b);
-	//print_nodes(&a);
-	free_data(&a, &b);
+	//print_nodes(a);
+	//free_data(&a, &b);
 	return (0);
 }

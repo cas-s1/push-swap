@@ -6,33 +6,34 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 07:20:58 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/02 09:44:19 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:49:34 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-static void	push(t_stack *src, t_stack *dst)
+char	*push_a(t_stack **a, t_stack **b)
 {
-	int	dst_index;
+	t_stack	*tmp;
 
-	if (is_full(dst))
-		return ;
-	dst_index = next_up(dst, dst->top);
-	dst->nodes[dst_index].value = src->nodes[src->top].value;
-	dst->top = dst_index;
-	src->nodes[src->top].value = 0;
-	src->top = next_down(src, src->top);
+	if (stack_size(*b) == 0)
+		return ("push from empty stack b");
+	tmp = *a;
+	*a = *b;
+	*b = (*b)->next;
+	(*a)->next = tmp;
+	return ("pa");
 }
 
-void	push_a(t_stack *a, t_stack *b)
+char	*push_b(t_stack **a, t_stack **b)
 {
-	push(b, a);
-	ft_putendl_fd("pa", 1);
-}
+	t_stack	*tmp;
 
-void	push_b(t_stack *a, t_stack *b)
-{
-	push(a, b);
-	ft_putendl_fd("pb", 1);
+	if (stack_size(*a) == 0)
+		return ("push from empty stack a");
+	tmp = *b;
+	*b = *a;
+	*a = (*a)->next;
+	(*b)->next = tmp;
+	return ("pb");
 }

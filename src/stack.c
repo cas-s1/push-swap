@@ -6,53 +6,67 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 08:25:00 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/03 09:49:43 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:40:37 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-int	next_up(t_stack *stack, int index)
+int	max_index(t_stack *stack)
 {
-	if (current_size(stack) == 0)
-		return (index);
-	if (index == 0)
-		return (stack->size - 1);
-	else
-		return (index - 1);
+	int	index;
+	int	i;
+
+	index = 0;
+	i = -1;
+	while (stack || i++)
+	{
+		if (stack->value > node_at(stack, index)->value)
+			index = i;
+		stack = stack->next;
+	}
+	return (index);
 }
 
-int	next_down(t_stack *stack, int index)
+int	min_index(t_stack *stack)
 {
-	if (current_size(stack) == 0)
-		return (index);
-	if (index == stack->size - 1)
-		return (0);
-	else
-		return (index + 1);
+	t_stack	*tmp;
+	int		min;
+	int		i;
+
+	min = stack->value;
+	tmp = stack;
+	i = 0;
+	while (stack)
+	{
+		if (stack->value < min)
+			min = stack->value;
+		stack = stack->next;
+	}
+	while (tmp->value != min)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
 }
 
-int	value(t_stack *stack, int index)
+t_stack	*node_at(t_stack *stack, int index)
+{
+	while (index-- > 0)
+		stack = stack->next;
+	return (stack);
+}
+
+int	stack_size(t_stack *stack)
 {
 	int	i;
 
-	i = stack->top;
-	while (--index > 0)
-		i = next_down(stack, i);
-	return (stack->nodes[i].value);
-}
-
-int	is_full(t_stack *stack)
-{
-	return (stack->size == current_size(stack));
-}
-
-int	current_size(t_stack *stack)
-{
-	if (stack->top == stack->bottom && stack->nodes[stack->top].value == 0)
-		return (0);
-	if (stack->top > stack->bottom)
-		return ((stack->size - stack->top) + (stack->bottom + 1));
-	else
-		return (stack->bottom - stack->top + 1);
+	i = 0;
+	while (stack)
+	{
+		stack = stack->next;
+		i++;
+	}
+	return (i);
 }

@@ -6,38 +6,40 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 09:46:12 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/03 10:08:23 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/08 08:00:53 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-static void	swap(t_stack *s)
+char	*swap_a(t_stack **a)
 {
-	int	temp;
+	t_stack	*tmp;
 
-	if (s->nodes[next_down(s, s->top)].value == 0)
-		return ;
-	temp = s->nodes[next_down(s, s->top)].value;
-	s->nodes[next_down(s, s->top)].value = s->nodes[s->top].value;
-	s->nodes[s->top].value = temp;
+	if (stack_size(*a) <= 1)
+		return ("swap a called with not enough items");
+	tmp = *a;
+	*a = (*a)->next;
+	tmp->next = (*a)->next;
+	(*a)->next = tmp;
+	return ("sa");
 }
 
-void	swap_a(t_stack *a)
+char	*swap_b(t_stack **b)
 {
-	swap(a);
-	ft_putendl_fd("sa", 1);
+	t_stack	*tmp;
+
+	if (stack_size(*b) <= 1)
+		return ("swap b called with not enough items");
+	tmp = *b;
+	*b = (*b)->next;
+	tmp->next = (*b)->next;
+	return ("sb");
 }
 
-void	swap_b(t_stack *b)
+char	*swap_both(t_stack **a, t_stack **b)
 {
-	swap(b);
-	ft_putendl_fd("sb", 1);
-}
-
-void	swap_both(t_stack *a, t_stack *b)
-{
-	swap(a);
-	swap(b);
-	ft_putendl_fd("ss", 1);
+	swap_a(a);
+	swap_b(b);
+	return ("ss");
 }

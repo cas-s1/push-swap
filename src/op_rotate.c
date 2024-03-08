@@ -6,43 +6,41 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 09:46:32 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/03 09:43:19 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/08 08:45:34 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-static void	rotate(t_stack *stack)
+char	*rotate_a(t_stack **a)
 {
-	if (is_full(stack))
-	{
-		stack->bottom = stack->top;
-		stack->top = next_down(stack, stack->top);
-	}
-	else
-	{
-		stack->bottom = next_down(stack, stack->bottom);
-		stack->nodes[stack->bottom].value = stack->nodes[stack->top].value;
-		stack->nodes[stack->top].value = 0;
-		stack->top = next_down(stack, stack->top);
-	}
+	t_stack	*tmp;
+
+	if (stack_size(*a) <= 1)
+		return ("rotate a called with not enough items");
+	tmp = *a;
+	*a = (*a)->next;
+	tmp->next = NULL;
+	node_at(*a, stack_size(*a) - 1)->next = tmp;
+	return ("ra");
 }
 
-void	rotate_a(t_stack *a)
+char	*rotate_b(t_stack **b)
 {
-	rotate(a);
-	ft_putendl_fd("ra", 1);
+	t_stack	*tmp;
+
+	if (stack_size(*b) <= 1)
+		return ("rotate b called with not enough items");
+	tmp = *b;
+	*b = (*b)->next;
+	tmp->next = NULL;
+	node_at(*b, stack_size(*b) - 1)->next = tmp;
+	return ("rb");
 }
 
-void	rotate_b(t_stack *b)
+char	*rotate_both(t_stack **a, t_stack **b)
 {
-	rotate(b);
-	ft_putendl_fd("rb", 1);
-}
-
-void	rotate_both(t_stack *a, t_stack *b)
-{
-	rotate(a);
-	rotate(b);
-	ft_putendl_fd("rr", 1);
+	rotate_a(a);
+	rotate_b(b);
+	return ("rr");
 }

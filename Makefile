@@ -12,6 +12,8 @@ FILES := push_swap \
 		 op_rotate \
 		 op_reverse_rotate \
 		 sort \
+		 algo \
+		 algo_utils \
 
 SRCDIR := src
 
