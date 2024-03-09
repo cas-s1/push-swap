@@ -6,36 +6,19 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 07:29:56 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/08 14:28:23 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:17:50 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void	error(t_stack *a, t_stack *b)
+static void	error(void)
 {
-	//free_data(a, b);
-	if (!a || b)
-		ft_putendl_fd("Error", 2);
+	ft_putendl_fd("Error", 2);
 	exit(1);
 }
 
-// DELETE BEFORE SUBMISSION
-/*static void	print_nodes(t_stack *stack)
-{
-	if (stack == NULL)
-	{
-		ft_putendl_fd("empty stack", 2);
-		return ;
-	}
-	while (stack)
-	{
-		printf("%d\n", stack->value);
-		stack = stack->next;
-	}
-}*/
-
-static long int	ps_atoi(t_stack *a, t_stack *b, char *s)
+static long int	ps_atoi(char *s)
 {
 	long int	res;
 	int			sign;
@@ -50,25 +33,25 @@ static long int	ps_atoi(t_stack *a, t_stack *b, char *s)
 		i++;
 	}
 	if (!s[i])
-		error(a, b);
+		error();
 	while (ft_isdigit(s[i]))
 		res = res * 10 + (s[i++] - 48);
 	if (s[i] && !ft_isdigit(s[i]))
-		error(a, b);
+		error();
 	return (res * sign);
 }
 
-static int	compare_atoi(t_stack *a, t_stack *b, char *s1, char *s2)
+static int	compare_atoi(char *s1, char *s2)
 {
 	long int	i;
 	long int	j;
 
-	i = ps_atoi(a, b, s1);
-	j = ps_atoi(a, b, s2);
+	i = ps_atoi(s1);
+	j = ps_atoi(s2);
 	return (i - j);
 }
 
-static void	parse_args(t_stack *a, t_stack *b, char **av)
+static void	parse_args(char **av)
 {
 	int		i;
 	int		j;
@@ -77,12 +60,12 @@ static void	parse_args(t_stack *a, t_stack *b, char **av)
 	while (av[++i])
 	{
 		j = 0;
-		if (ps_atoi(a, b, av[i]) > INT_MAX || ps_atoi(a, b, av[i]) < INT_MIN)
-			error(a, b);
+		if (ps_atoi(av[i]) > INT_MAX || ps_atoi(av[i]) < INT_MIN)
+			error();
 		while (av[++j])
 		{
-			if (i != j && !compare_atoi(a, b, av[i], av[j]))
-				error(a, b);
+			if (i != j && !compare_atoi(av[i], av[j]))
+				error();
 		}
 	}
 }
@@ -100,10 +83,10 @@ int	main(int ac, char **av)
 		av = ft_split(av[1], 32);
 	else
 		av++;
-	parse_args(a, b, av);
+	parse_args(av);
 	init_pushswap(&a, av);
 	sort(&a, &b);
-	//print_nodes(a);
-	//free_data(&a, &b);
+	free_stack(&a);
+	free_stack(&b);
 	return (0);
 }

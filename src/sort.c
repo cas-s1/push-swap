@@ -6,11 +6,18 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 08:17:41 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/08 14:30:06 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:09:54 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+
+int	abs(int n)
+{
+	if (n < 0)
+		n *= -1;
+	return (n);
+}
 
 void	sort_three_a(t_stack **a)
 {
@@ -18,9 +25,9 @@ void	sort_three_a(t_stack **a)
 	int	second;
 	int	third;
 
-	first = node_at(*a, 0)->value;
-	second = node_at(*a, 1)->value;
-	third = node_at(*a, 2)->value;
+	first = node_at(*a, 0)->val;
+	second = node_at(*a, 1)->val;
+	third = node_at(*a, 2)->val;
 	if (first > second && third > second && third > first)
 		ft_putendl_fd(swap_a(a), 1);
 	else if (first > second && third > second && first > third)
@@ -45,7 +52,7 @@ static void	sort_five_a(t_stack **a, t_stack **b)
 
 	while (stack_size(*a) > 3)
 	{
-		smallest = min_index(*a);
+		smallest = min(*a);
 		if (smallest == 0)
 			ft_putendl_fd(push_b(a, b), 1);
 		else if (smallest < stack_size(*a) / 2)
@@ -68,6 +75,6 @@ void	sort(t_stack **a, t_stack **b)
 		sort_three_a(a);
 	else if (stack_size(*a) < 6)
 		sort_five_a(a, b);
-	/*else
-		large_sort(a, b);*/
+	else
+		large_sort(a, b);
 }

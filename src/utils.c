@@ -6,51 +6,40 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:23:02 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/08 10:43:20 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:18:08 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 #include <stdlib.h>
-/*
-void	free_data(t_stack *a, t_stack *b)
+
+void	free_stack(t_stack **stack)
 {
 	t_stack	*tmp;
-	if (a)
+
+	if (!stack || !*stack)
+		return ;
+	while (*stack)
 	{
-		while (a->next)
-		{
-			tmp = a;
-			a = a->next;
-			free(tmp);
-		}
-		free(a);
+		tmp = (*stack)->next;
+		free(*stack);
+		*stack = tmp;
 	}
-	if (b)
-	{
-		while(b->next)
-		{
-			tmp = b;
-			b = b->next;
-			free(b);
-		}
-		free(b);
-	}
+	*stack = NULL;
 }
-*/
 
 int	is_sorted(t_stack *stack)
 {
 	while (stack->next)
 	{
-		if (stack->value > stack->next->value)
+		if (stack->val > stack->next->val)
 			return (0);
 		stack = stack->next;
 	}
 	return (1);
 }
 
-static t_stack	*create_node(int value)
+static t_stack	*create_node(int val)
 {
 	t_stack	*new_node;
 
@@ -60,19 +49,12 @@ static t_stack	*create_node(int value)
 		ft_putendl_fd("stack bad", 2);
 		exit(1);
 	}
-	new_node->value = value;
+	new_node->val = val;
 	new_node->cost_a = 0;
 	new_node->cost_b = 0;
 	new_node->total_cost = 0;
 	new_node->next = NULL;
 	return (new_node);
-}
-
-int	abs(int n)
-{
-	if (n < 0)
-		n *= -1;
-	return (n);
 }
 
 static void	add_node_back(t_stack **stack, t_stack *new_node)

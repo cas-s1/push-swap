@@ -1,6 +1,6 @@
 NAME := push_swap
 
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -g
 
 LIBFT := libft/libft.a
 

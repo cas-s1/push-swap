@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 07:30:11 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/08 14:23:04 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:15:46 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,23 @@
 
 typedef struct s_stack
 {
-	int				value;
+	int				val;
 	int				cost_a;
 	int				cost_b;
 	int				total_cost;
 	struct s_stack	*next;
 }	t_stack;
 
-// push_swap.c
-void	error(t_stack *a, t_stack *b);
-
 // stack.c
-int		max_index(t_stack *stack);
-int		min_index(t_stack *stack);
-t_stack	*stack_last(t_stack *stack);
+int		max(t_stack *stack);
+int		min(t_stack *stack);
+int		find_value_index(t_stack *stack, int val);
 t_stack	*node_at(t_stack *stack, int index);
 int		stack_size(t_stack *stack);
 
 // utils.c
-void	free_data(t_stack *a, t_stack *b);
+void	free_stack(t_stack **stack);
 int		is_sorted(t_stack *stack);
-int		abs(int n);
 void	init_pushswap(t_stack **a, char **av);
 
 // op_push.c
@@ -67,14 +63,15 @@ char	*reverse_rotate_both(t_stack **a, t_stack **b);
 // sort.c
 void	sort(t_stack **a, t_stack **b);
 void	sort_three_a(t_stack **a);
+int		abs(int n);
 
 // algo.c
-void	large_sort(t_stack *a, t_stack *b);
+void	large_sort(t_stack **a, t_stack **b);
 
 // algo_utils.c
 void	count_steps_a(t_stack *a);
 void	count_steps_b(t_stack *a, t_stack *b);
 void	total_steps(t_stack *a);
-int		min_steps(t_stack *a);
+int		min_steps(t_stack **a);
 
 #endif

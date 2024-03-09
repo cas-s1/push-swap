@@ -6,34 +6,35 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 07:49:06 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/08 09:50:09 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:00:44 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 #include <stdlib.h>
-/*
-static int	get_target_index(t_node *a, t_stack *b)
-{
-	int	index;
-	int	last_val;
-	int	i;
 
-	i = b->top;
-	if (a->value < min_index(b) || a->value > max_index(b))
-		index = max_index(b);
+static int	get_target_index(t_stack *a, t_stack *b, int size)
+{
+	t_stack	*b_copy;
+	int		last_val;
+	int		index;
+	int		i;
+
+	b_copy = b;
+	i = -1;
+	if (a->val < min(b) || a->val > max(b))
+		index = find_value_index(b, max(b));
 	else
 	{
-		last_val = b->nodes[b->bottom].value;
-		while (i != next_down(b, b->bottom))
+		last_val = node_at(b, size - 1)->val;
+		while (b_copy->next)
 		{
-			if (a->value < b->nodes[i].value
-				&& a->value > b->nodes[next_down(b, i)].value)
-				index = next_down(b, i);
-			else if (a->value < last_val
-				&& a->value > b->nodes[i].value)
-				index = i;
-			i = next_down(b, i);
+			i++;
+			if (a->val < b_copy->val && a->val > b_copy->next->val)
+				index = i + 1;
+			else if (a->val < last_val && a->val > b->val)
+				index = 0;
+			b_copy = b_copy->next;
 		}
 	}
 	return (index);
@@ -41,20 +42,18 @@ static int	get_target_index(t_node *a, t_stack *b)
 
 void	count_steps_a(t_stack *a)
 {
-	int	stack_size;
 	int	stack_pos;
-	int	i;
+	int	size;
 
-	stack_size = current_size(a);
+	size = stack_size(a);
 	stack_pos = 0;
-	i = a->top;
-	while (i != next_down(a, a->bottom))
+	while (a)
 	{
-		if (stack_pos <= (stack_size / 2))
-			a->nodes[i].cost_a = stack_pos;
+		if (stack_pos <= (size / 2))
+			a->cost_a = stack_pos;
 		else
-			a->nodes[i].cost_a = stack_pos - stack_size;
-		i = next_down(a, i);
+			a->cost_a = stack_pos - size;
+		a = a->next;
 		stack_pos++;
 	}
 }
@@ -62,64 +61,54 @@ void	count_steps_a(t_stack *a)
 void	count_steps_b(t_stack *a, t_stack *b)
 {
 	int	target;
-	int	stack_size;
-	int	i;
+	int	size;
 
-	stack_size = current_size(b);
-	i = a->top;
-	while (i != next_down(a, a->bottom))
+	size = stack_size(b);
+	while (a)
 	{
-		target = get_target_index(&a->nodes[i], b);
-		if (target <= stack_size / 2)
-			a->nodes[i].cost_b = target;
+		target = get_target_index(a, b, size);
+		if (target <= size / 2)
+			a->cost_b = target;
 		else
-			a->nodes[i].cost_b = -(stack_size - target);
-		i = next_down(a, i);
+			a->cost_b = -(size - target);
+		a = a->next;
 	}
 }
 
 void	total_steps(t_stack *a)
 {
-	int	cost_a;
-	int	cost_b;
-	int	i;
-
-	i = a->top;
-	while (i != a->bottom)
+	while (a)
 	{
-		cost_a = a->nodes[i].cost_a;
-		cost_b = a->nodes[i].cost_b;
-		if (cost_a * cost_b < 0)
-			a->nodes[i].total_cost = abs(cost_a) + abs(cost_b);
+		if (a->cost_a * a->cost_b < 0)
+			a->total_cost = abs(a->cost_a) + abs(a->cost_b);
 		else
 		{
-			if (abs(cost_a) > abs(cost_b))
-				a->nodes[i].total_cost = abs(cost_a);
+			if (abs(a->cost_a) > abs(a->cost_b))
+				a->total_cost = abs(a->cost_a);
 			else
-				a->nodes[i].total_cost = abs(cost_b);
+				a->total_cost = abs(a->cost_b);
 		}
-		i = next_down(a, i);
+		a = a->next;
 	}
 }
 
-int	min_steps(t_stack *a)
+int	min_steps(t_stack **a)
 {
 	int	index;
 	int	min_steps;
 	int	current_steps;
 	int	i;
 
-	i = a->top;
+	i = -1;
 	min_steps = 2147483647;
-	while (i != a->bottom)
+	while (++i < stack_size(*a))
 	{
-		current_steps = a->nodes[i].total_cost;
+		current_steps = node_at(*a, i)->total_cost;
 		if (current_steps < min_steps)
 		{
 			min_steps = current_steps;
 			index = i;
 		}
-		i = next_down(a, i);
 	}
 	return (index);
-}*/
+}

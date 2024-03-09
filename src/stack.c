@@ -6,49 +6,57 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 08:25:00 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/08 10:40:37 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/09 13:57:00 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-int	max_index(t_stack *stack)
+int	max(t_stack *stack)
 {
-	int	index;
-	int	i;
+	int		max;
 
-	index = 0;
-	i = -1;
-	while (stack || i++)
-	{
-		if (stack->value > node_at(stack, index)->value)
-			index = i;
-		stack = stack->next;
-	}
-	return (index);
-}
-
-int	min_index(t_stack *stack)
-{
-	t_stack	*tmp;
-	int		min;
-	int		i;
-
-	min = stack->value;
-	tmp = stack;
-	i = 0;
+	if (!stack)
+		return (0);
+	max = stack->val;
 	while (stack)
 	{
-		if (stack->value < min)
-			min = stack->value;
+		if (stack->val > max)
+			max = stack->val;
 		stack = stack->next;
 	}
-	while (tmp->value != min)
+	return (max);
+}
+
+int	min(t_stack *stack)
+{
+	int		min;
+
+	if (!stack)
+		return (0);
+	min = stack->val;
+	while (stack)
 	{
-		tmp = tmp->next;
-		i++;
+		if (stack->val < min)
+			min = stack->val;
+		stack = stack->next;
 	}
-	return (i);
+	return (min);
+}
+
+int	find_value_index(t_stack *stack, int val)
+{
+	int	i;
+
+	i = -1;
+	while (stack)
+	{
+		i++;
+		if (stack->val == val)
+			return (i);
+		stack = stack->next;
+	}
+	return (-1);
 }
 
 t_stack	*node_at(t_stack *stack, int index)
