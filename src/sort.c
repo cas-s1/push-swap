@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 08:17:41 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/09 14:09:54 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/10 10:30:35 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	sort_five_a(t_stack **a, t_stack **b)
 
 	while (stack_size(*a) > 3)
 	{
-		smallest = min(*a);
+		smallest = find_value_index(*a, min(*a));
 		if (smallest == 0)
 			ft_putendl_fd(push_b(a, b), 1);
 		else if (smallest < stack_size(*a) / 2)
