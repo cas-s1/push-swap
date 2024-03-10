@@ -1,10 +1,12 @@
 NAME := push_swap
 
+BONUS_NAME := checker
+
 CFLAGS := -Wall -Wextra -Werror -O2 -g
 
 LIBFT := libft/libft.a
 
-FILES := push_swap \
+MAIN_FILES := push_swap \
 		 stack \
 		 utils \
 		 op_push \
@@ -15,18 +17,38 @@ FILES := push_swap \
 		 algo \
 		 algo_utils \
 
+BONUS_FILES := checker \
+			   checker_utils \
+			   stack \
+			   utils \
+			   op_push \
+			   op_swap \
+			   op_rotate \
+			   op_reverse_rotate \
+
+INCDIR := inc
+
 SRCDIR := src
 
-SRC := $(FILES:%=$(SRCDIR)/%.c)
+MAIN_SRC := $(MAIN_FILES:%=$(SRCDIR)/%.c)
+
+BONUS_SRC := $(BONUS_FILES:%=$(SRCDIR)/%.c)
 
 OBJDIR := obj
 
-OBJ := $(FILES:%=$(OBJDIR)/%.o)
+MAIN_OBJ := $(MAIN_FILES:%=$(OBJDIR)/%.o)
 
-all: $(NAME)
+BONUS_OBJ := $(BONUS_FILES:%=$(OBJDIR)/%.o)
 
-$(NAME): $(OBJ) $(LIBFT)
-	@cc $(CFLAGS) $(OBJ) $(LIBFT) -o $@
+$(NAME): $(MAIN_OBJ) $(LIBFT)
+	@cc $(CFLAGS) $(MAIN_OBJ) $(LIBFT) -o $@
+
+$(BONUS_NAME): $(BONUS_OBJ) $(LIBFT)
+	@cc $(CFLAGS) $(BONUS_OBJ) $(LIBFT) -o $@
+
+bonus: $(BONUS_NAME)
+
+all: $(NAME) $(BONUS_NAME)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
@@ -40,8 +62,8 @@ clean:
 	@rm -rf $(OBJDIR)
 
 fclean: clean
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(BONUS_NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
