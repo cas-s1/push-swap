@@ -6,12 +6,11 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:23:02 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/09 14:18:08 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/10 11:49:26 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
-#include <stdlib.h>
 
 void	free_stack(t_stack **stack)
 {

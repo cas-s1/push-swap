@@ -6,12 +6,11 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 07:49:06 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/09 14:00:44 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/10 11:52:59 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
-#include <stdlib.h>
 
 static int	get_target_index(t_stack *a, t_stack *b, int size)
 {
@@ -20,6 +19,7 @@ static int	get_target_index(t_stack *a, t_stack *b, int size)
 	int		index;
 	int		i;
 
+	index = 0;
 	b_copy = b;
 	i = -1;
 	if (a->val < min(b) || a->val > max(b))
@@ -99,6 +99,7 @@ int	min_steps(t_stack **a)
 	int	current_steps;
 	int	i;
 
+	index = 0;
 	i = -1;
 	min_steps = 2147483647;
 	while (++i < stack_size(*a))

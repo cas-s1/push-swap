@@ -6,7 +6,7 @@
 /*   By: co-neill <co-neill@student.42adel.org.au>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 07:20:56 by co-neill          #+#    #+#             */
-/*   Updated: 2024/03/09 14:18:21 by co-neill         ###   ########.fr       */
+/*   Updated: 2024/03/10 11:49:53 by co-neill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,35 +65,19 @@ static void	combine(t_stack **a, t_stack **b, int pos)
 	move_stack(a, b, pos);
 }
 
-static void	order_b(t_stack **a, t_stack **b)
+static void	order_b(t_stack **b)
 {
-	while ((*b)->val != max(*b))
+	while (*b && (*b)->val != max(*b))
 	{
 		if (find_value_index(*b, max(*b)) <= stack_size(*b) / 2)
 			ft_putendl_fd(rotate_b(b), 1);
 		else
 			ft_putendl_fd(reverse_rotate_b(b), 1);
 	}
-	sort_three_a(a);
 }
 
 static void	move_to_a(t_stack **a, t_stack **b)
 {
-	t_stack	*a_copy;
-	int		i;
-
-	i = 3;
-	a_copy = node_at(*a, stack_size(*a) - i--);
-	while (stack_size(a_copy))
-	{
-		if (max(a_copy) < max(*b))
-			ft_putendl_fd(push_a(a, b), 1);
-		else
-		{
-			ft_putendl_fd(reverse_rotate_a(a), 1);
-			a_copy = node_at(*a, stack_size(*a) - i--);
-		}
-	}
 	while (stack_size(*b))
 		ft_putendl_fd(push_a(a, b), 1);
 }
@@ -104,7 +88,7 @@ void	large_sort(t_stack **a, t_stack **b)
 
 	ft_putendl_fd(push_b(a, b), 1);
 	ft_putendl_fd(push_b(a, b), 1);
-	while (stack_size(*a) > 3)
+	while (stack_size(*a) > 0)
 	{
 		count_steps_a(*a);
 		count_steps_b(*a, *b);
@@ -113,6 +97,6 @@ void	large_sort(t_stack **a, t_stack **b)
 		combine(a, b, pos);
 		ft_putendl_fd(push_b(a, b), 1);
 	}
-	order_b(a, b);
+	order_b(b);
 	move_to_a(a, b);
 }
